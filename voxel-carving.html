@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxel Carving - Plain JS & Three.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <script>
+        // Initialize Scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create Voxel Grid
+        const gridSize = 10; // 10x10x10 Grid
+        const voxelSize = 1; // Each voxel size
+        let voxels = []; // Store voxel objects
+
+        for (let x = -gridSize / 2; x < gridSize / 2; x++) {
+            for (let y = -gridSize / 2; y < gridSize / 2; y++) {
+                for (let z = -gridSize / 2; z < gridSize / 2; z++) {
+                    const geometry = new THREE.BoxGeometry(voxelSize, voxelSize, voxelSize);
+                    const material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false });
+                    const voxel = new THREE.Mesh(geometry, material);
+                    voxel.position.set(x * voxelSize, y * voxelSize, z * voxelSize);
+                    scene.add(voxel);
+                    voxels.push(voxel);
+                }
+            }
+        }
+
+        // Define Camera Positions (For Silhouette Extraction)
+        const cameraViews = [
+            new THREE.Vector3(10, 0, 0),  // Front View
+            new THREE.Vector3(-10, 0, 0), // Back View
+            new THREE.Vector3(0, 10, 0),  // Top View
+            new THREE.Vector3(0, -10, 0)  // Bottom View
+        ];
+
+        // Silhouette Function (Example: Sphere-like silhouette)
+        function getSilhouette(x, y, z) {
+            const R = gridSize / 2.5; // Radius of sphere-like silhouette
+            return x * x + y * y + z * z < R * R;
+        }
+
+        // Carve the Voxel Grid
+        function carveVoxels() {
+            for (let voxel of voxels) {
+                let keep = false;
+                for (let view of cameraViews) {
+                    if (getSilhouette(voxel.position.x, voxel.position.y, voxel.position.z)) {
+                        keep = true;
+                        break;
+                    }
+                }
+                if (!keep) {
+                    scene.remove(voxel);
+                }
+            }
+        }
+
+        // Set Camera Position
+        camera.position.set(15, 15, 15);
+        camera.lookAt(0, 0, 0);
+
+        // Render Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Apply Voxel Carving After 2 Seconds
+        setTimeout(carveVoxels, 2000);
+    </script>
+</body>
+</html>
