@@ -28,7 +28,7 @@ function Voxel({ position, visible }) {
     visible && (
       <mesh position={position}>
         <boxGeometry args={[voxelSize, voxelSize, voxelSize]} />
-        <meshStandardMaterial color="white" />
+        <meshStandardMaterial color="hotpink" />
       </mesh>
     )
   );
@@ -53,9 +53,28 @@ function VoxelGrid() {
 export default function App() {
   return (
     <Canvas camera={{ position: [15, 15, 15] }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <VoxelGrid />
+      <color attach="background" args={['pink']} />
+      <ambientLight intensity={1} />
+      <directionalLight
+            position={[10, 10, 10]}
+            intensity={1}
+            castShadow
+        />
+        <directionalLight
+            position={[-10, 10, -10]}
+            intensity={1}
+            castShadow
+        />
+        <directionalLight
+            position={[-10, 10, 10]}
+            intensity={1}
+            castShadow
+        />
+        <directionalLight
+            position={[10, 10, -10]}
+            intensity={1} // Brightness of the light
+            castShadow
+        />      <VoxelGrid />
       <OrbitControls />
     </Canvas>
   );
