@@ -1,4 +1,4 @@
-name: Deploy xyz
+name: Deploy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build xyz
+    name: Build
     runs-on: ubuntu-latest
     env:
       VITE_EXAMPLE: ${{ vars.VITE_EXAMPLE }}
@@ -32,7 +32,7 @@ jobs:
           path: ./dist
 
   deploy:
-    name: Deploy xyz
+    name: Deploy
     needs: build
     permissions:
       id-token: write
@@ -55,5 +55,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          github_token: ${{ secrets.G_ACCESS_TOKEN }}
+          github_token: ${{ secrets.G_ACCESS_TOKEN_1 }}
           publish_dir: ./dist
