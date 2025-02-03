@@ -38,6 +38,9 @@ function VoxelGrid() {
 }
 
 export default function App() {
+  const baseUrl = import.meta.env.VITE_EXAMPLE || 'garbage';
+  console.log("xyz " + baseUrl)
+
   return (
     <Canvas camera={{ position: [15, 15, 15] }}>
       <color attach="background" args={['blue']} />
