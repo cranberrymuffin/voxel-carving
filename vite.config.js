@@ -4,6 +4,7 @@ import restart from 'vite-plugin-restart'
 
 export default {
     root: 'src/',
+    base: '/voxel-carving/',
     publicDir: '../public/',
     plugins:
     [

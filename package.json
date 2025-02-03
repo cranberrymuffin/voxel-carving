@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "4.3",
@@ -18,6 +20,7 @@
     "@react-three/rapier": "1.4",
     "react": "18.3",
     "react-dom": "18.3",
-    "three": "^0.166.1"
+    "three": "^0.166.1",
+    "gh-pages": "^6.3.0"
   }
 }
