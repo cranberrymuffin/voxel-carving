@@ -1,9 +1,8 @@
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
 const gridSize = 10;
 const voxelSize = 1;
-
 
 function isVisible(x, y, z) {
   const R = gridSize / 2.5;
@@ -26,10 +25,10 @@ function generateVoxels() {
 
 function Voxel({ position }) {
   return (
-      <mesh position={position}>
-        <boxGeometry args={[voxelSize, voxelSize, voxelSize]} />
-        <meshStandardMaterial color="hotpink" />
-      </mesh>
+    <mesh position={position}>
+      <boxGeometry args={[voxelSize, voxelSize, voxelSize]} />
+      <meshStandardMaterial color="hotpink" />
+    </mesh>
   );
 }
 
@@ -39,32 +38,21 @@ function VoxelGrid() {
 
 export default function App() {
   const baseUrl = import.meta.env.VITE_EXAMPLE || 'garbage';
-  console.log("xyz " + baseUrl)
+  console.log('xyz ' + baseUrl);
 
   return (
     <Canvas camera={{ position: [15, 15, 15] }}>
       <color attach="background" args={['pink']} />
       <ambientLight intensity={1} />
-      <directionalLight
-        position={[10, 10, 10]}
-        intensity={1}
-        castShadow
-      />
-      <directionalLight
-        position={[-10, 10, -10]}
-        intensity={1}
-        castShadow
-      />
-      <directionalLight
-        position={[-10, 10, 10]}
-        intensity={1}
-        castShadow
-      />
+      <directionalLight position={[10, 10, 10]} intensity={1} castShadow />
+      <directionalLight position={[-10, 10, -10]} intensity={1} castShadow />
+      <directionalLight position={[-10, 10, 10]} intensity={1} castShadow />
       <directionalLight
         position={[10, 10, -10]}
         intensity={1} // Brightness of the light
         castShadow
-      />      <VoxelGrid />
+      />
+      <VoxelGrid />
       <OrbitControls />
     </Canvas>
   );
