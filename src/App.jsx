@@ -40,7 +40,7 @@ function VoxelGrid() {
 export default function App() {
   return (
     <Canvas camera={{ position: [15, 15, 15] }}>
-      <color attach="background" args={['pink']} />
+      <color attach="background" args={['blue']} />
       <ambientLight intensity={1} />
       <directionalLight
         position={[10, 10, 10]}
