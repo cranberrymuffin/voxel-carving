@@ -70,9 +70,8 @@ export default function App() {
     const FMatrix = math.reshape(F, [3, 3]);
 
     console.log(FMatrix);
-    drawEpipolarLines(FMatrix);
   };
-  
+
   return (
     <div className="flex flex-col items-center p-4">
       <div className="grid grid-cols-2 gap-4">
