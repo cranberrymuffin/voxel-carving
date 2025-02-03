@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy xyz
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build xyz
     runs-on: ubuntu-latest
     env:
       VITE_EXAMPLE: ${{ vars.VITE_EXAMPLE }}
@@ -32,7 +32,7 @@ jobs:
           path: ./dist
 
   deploy:
-    name: Deploy
+    name: Deploy xyz
     needs: build
     permissions:
       id-token: write
